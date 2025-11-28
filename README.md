@@ -37,8 +37,8 @@ Output: result vector filled with approximated ∛(a³ + b³)
  Comparing throughput with the standard library.
 
 
-IEEE compliance
-## Float Test Results
+## IEEE compliance
+# Float Test Results
 | Case | Input (a, b) | Expected   | Exact_f 	| Farce_f         | Hybrid_f   	  |  Hybrid_AVX2_f 	| Farce_AVX2_f 	  |
 |------|--------------|------------|----------|-----------------|---------------|-----------------|-----------------|
 | 0    |    (∞, -∞)   | NaN        |  NaN ✅  |  NaN ✅        | NaN ✅ 	      |  NaN ✅     	  |  NaN ✅         |
