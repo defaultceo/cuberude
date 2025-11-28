@@ -3,7 +3,7 @@ Fast approximations for ∛(a³ + b³) using SIMD-optimized methods.
 FARCe (fast) & Hybrid (accuracy)
 
 Installation  
-'''c #include "cuberude.h" '''
+```c #include "cuberude.h" ```
 
 Place cuberude.h in your project’s include path.
 
