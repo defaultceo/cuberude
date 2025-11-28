@@ -1,20 +1,20 @@
 # cuberude
-Fast approximations for ∛(a³ + b³) using SIMD-optimized methods.
+Fast approximations for ∛(a³ + b³) using SIMD-optimized methods.  
 FARCe (fast) & Hybrid (accuracy)
 
-Installation
+Installation  
 #include "cuberude.h"
 
 Place cuberude.h in your project’s include path.
 
-Dependencies
+Dependencies  
 "Requires AVX2-capable compiler (GCC, Clang, MSVC)."
 
-Build Notes
+Build Notes  
 "No build required — header-only."
 
-Usage
-All functions follow this pattern:
+Usage  
+All functions follow this pattern:  
 	void cuberude_farce_avx2_ps(float* a, float* b, float* result, size_t size);
 
 Input:  Vectors a, b of length size
