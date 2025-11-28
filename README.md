@@ -20,7 +20,7 @@ All functions follow this pattern:
 Input:  Vectors a, b of length size
 Output: result vector filled with approximated ∛(a³ + b³)
 
-Benchmarks
+## Benchmarks
 |  Function                       	| Throughput (GElements/s)
 | ----------------------------------------------------------------
 |   Exact_f  (std::cbrt)*         	|  0.04 
@@ -32,7 +32,7 @@ Benchmarks
 |   farce_avx2   		  	            |  0.19 
 |   hybrid_avx2_f 		  	          |  0.20
 |   hybrid_avx2   		  	          |  0.10
-| ----------------------------------------------------------------
+
 *The Exact_f function has no implementation of ours; Uses std::cbrt(a*a*a + b*b*b);
  Comparing throughput with the standard library.
 
@@ -59,7 +59,7 @@ IEEE compliance
 | 15   |   (∞, 1)     | +Inf       | +Inf ✅ 	| +Inf ✅        | +Inf ✅ 	      | +Inf ✅         | +Inf ✅         |
 | 16   |(1e-40, 1e40) | +Inf       | +Inf ✅ 	| +Inf ✅        | +Inf ✅ 	      | +Inf ✅         | +Inf ✅         |
 | 17   |(1e-38, 1e38) | 1e38       | +Inf ❌ 	| 1e+38 ✅       | 1e+38 ✅ 	    | 1e+38 ✅        | 1e+38 ✅        |
-| ------------------------------------------------------------------------------------------------------------------|
+
 
 ✅ = Correct result per IEEE 754 edge-case rules
 ❌ = Deviation from expected behavior
