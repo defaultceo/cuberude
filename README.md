@@ -34,7 +34,7 @@ Output: result vector filled with approximated ∛(a³ + b³)
 |   hybrid_avx2_f 		  	        |  0.20						|
 |   hybrid_avx2   		  	        |  0.10						|
 
-*The Exact_f function has no implementation of ours; Uses std::cbrt(a*a*a + b*b*b);
+*The Exact_f function has no implementation of ours; Uses std::cbrt(a * a * a + b * b * b);
  Comparing throughput with the standard library.
 
 
