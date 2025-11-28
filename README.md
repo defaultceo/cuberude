@@ -21,17 +21,17 @@ Input:  Vectors a, b of length size
 Output: result vector filled with approximated ∛(a³ + b³)
 
 ## Benchmarks
-|  Function                       	| Throughput (GElements/s)
-| ----------------------------------------------------------------
-|   Exact_f  (std::cbrt)*         	|  0.04 
-|   farce_f 			  	              |  0.12
-|   farce_d   			  	            |  0.07
-|   hybrid_f 			  	              |  0.05
-|   hybrid_d   			  	            |  0.05
-|   farce_avx2_f 		  	            |  0.37 
-|   farce_avx2   		  	            |  0.19 
-|   hybrid_avx2_f 		  	          |  0.20
-|   hybrid_avx2   		  	          |  0.10
+|  Function                       	| Throughput (GElements/s)  |
+| ----------------------------------|---------------------------|
+|   Exact_f  (std::cbrt)*         	|  0.04 					|
+|   farce_f 			  	        |  0.12						|
+|   farce_d   			  	        |  0.07						|
+|   hybrid_f 			  	        |  0.05						|
+|   hybrid_d   			  	        |  0.05						|
+|   farce_avx2_f 		  	        |  0.37 					|
+|   farce_avx2   		  	        |  0.19 					|
+|   hybrid_avx2_f 		  	        |  0.20						|
+|   hybrid_avx2   		  	        |  0.10						|
 
 *The Exact_f function has no implementation of ours; Uses std::cbrt(a*a*a + b*b*b);
  Comparing throughput with the standard library.
