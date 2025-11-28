@@ -17,7 +17,7 @@ Usage
 All functions follow this pattern:  
 	void cuberude_farce_avx2_ps(float* a, float* b, float* result, size_t size);
 
-Input:  Vectors a, b of length size
+Input:  Vectors a, b of length size  
 Output: result vector filled with approximated ∛(a³ + b³)
 
 ## Benchmarks
