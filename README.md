@@ -23,6 +23,7 @@ Output: result vector filled with approximated ∛(a³ + b³)
 ## Benchmarks
 |  Function                       	| Throughput (GElements/s)  |
 | ----------------------------------|---------------------------|
+|   Exact    (std::cbrt)*         	|  0.04 					|
 |   Exact_f  (std::cbrt)*         	|  0.04 					|
 |   farce_f 			  	        |  0.12						|
 |   farce_d   			  	        |  0.07						|
