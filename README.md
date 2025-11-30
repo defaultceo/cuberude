@@ -86,7 +86,7 @@ Double Test Results
 ✅ = Correct result per IEEE 754 edge-case rules
 ❌ = Deviation from expected behavior
 
-License
+**License**  
 SPDX-License-Identifier: AGPL-3.0-only OR Commercial
 
 
