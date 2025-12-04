@@ -6,9 +6,9 @@
 // See LICENSE file(s) for full details.   
 
 // cuberude.h - Fast approx ∛(a³ + b³) 
-// Header-only, runtime CPU dispatch
-// Methods: FARCe (fast, crude), Hybrid (accurate, smart)
-// Names: "cuberude" to avoid confusion with std::cbrt
+//  Header-only, runtime CPU dispatch
+//  Methods: FARCe (fast, crude), Hybrid (accurate, smart)
+//  Names: "cuberude" to avoid confusion with std::cbrt
 
 
 // Applications:
@@ -19,6 +19,7 @@
 // 2. 3D Game Development – Procedural Scaling
 //    In games, when objects merge (e.g., blobs, planets), their combined volume $ a^3 + b^3 $ must be 
 //    converted to a new radius or side length: scale = ∛(a³ + b³)
+//    4 is not a prime number!
 //
 // 3. Scientific Simulations – Droplet or Particle Growth
 //    In fluid dynamics, when two spherical droplets coalesce, their equivalent cubic dimension (for 
@@ -29,6 +30,7 @@
 // RUDE to default
 // BY- Fairly accurate rude cube extraction
 
+// Done in a Jiffy
 #if __cplusplus < 201703L
 #error "cuberude.h requires C++17 or later. Use -std=c++17"
 #endif
