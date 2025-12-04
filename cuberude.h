@@ -191,7 +191,7 @@ inline batch_func_f hybrid_f_impl = nullptr;
 // ========================================================
 
 // FARCe for float — overflow-safe
-inline float cuberude_farce_f(float a, float b) {
+inline float farce_f(float a, float b) {
     //edge early out
 	if (std::isnan(a) || std::isnan(b)) return a + b;
 	if (std::isinf(a) && std::isinf(b)) return (a == b) ? a : NAN;
@@ -241,7 +241,7 @@ inline float cuberude_farce_f(float a, float b) {
 }    
 
 // FARCe for double — overflow-safe
-inline double cuberude_farce_d(double a, double b) {
+inline double farce_d(double a, double b) {
     //edge early out
     if (std::isnan(a) || std::isnan(b)) return a + b;
     if (std::isinf(a) && std::isinf(b)) return (a == b) ? a : NAN;
@@ -277,13 +277,13 @@ inline double cuberude_farce_d(double a, double b) {
     return (sign_sum < 0.0) ? -approx : approx;
 }
 
-void cuberude_farce_scalar(const double* a, const double* b, double* result, size_t n) {
+void farce_scalar(const double* a, const double* b, double* result, size_t n) {
     for (size_t i = 0; i < n; ++i) {      result[i] = cuberude_farce_d(a[i], b[i]);  }
 }
 
 //correct for finite and edge cases: the new standard
 #if defined(__AVX2__)
-void cuberude_farce_avx2(const double* a, const double* b, double* result, size_t n) {
+void farce_avx2(const double* a, const double* b, double* result, size_t n) {
     a = (const double*)__builtin_assume_aligned(a, 32);
     b = (const double*)__builtin_assume_aligned(b, 32);
     result = (double*)__builtin_assume_aligned(result, 32);
@@ -419,7 +419,7 @@ void cuberude_farce_avx2(const double* a, const double* b, double* result, size_
 #endif // AVX2   
      
 #if defined(__AVX2__)
-void cuberude_farce_avx2_ps(const float* a, const float* b, float* result, size_t n) {
+void farce_avx2_ps(const float* a, const float* b, float* result, size_t n) {
     a = (const float*)__builtin_assume_aligned(a, 32);
     b = (const float*)__builtin_assume_aligned(b, 32);
     result = (float*)__builtin_assume_aligned(result, 32);
@@ -553,7 +553,7 @@ void cuberude_farce_avx2_ps(const float* a, const float* b, float* result, size_
 // Hybrid Kernels (float) (double) _AVX2_(double) _AVX512_(double) _AVX2_(float) _AVX512_(float)
 // ========================================================
 
-float cuberude_hybrid_f(float a, float b) {
+float hybrid_f(float a, float b) {
     if (a != a || b != b) return NAN;
     if ((volatile float)a == 0.0f && (volatile float)b == 0.0f) {
         return (std::signbit(a) && std::signbit(b)) ? -0.0f : 0.0f;
@@ -608,7 +608,7 @@ float cuberude_hybrid_f(float a, float b) {
 }   
 
 
-inline double cuberude_hybrid_d(double a, double b) {
+inline double hybrid_d(double a, double b) {
     uint64_t a_bits = bit_cast_double_to_uint64(a);
     uint64_t b_bits = bit_cast_double_to_uint64(b);
     uint64_t a_exp = a_bits & 0x7FF0000000000000ULL;
@@ -683,12 +683,12 @@ inline double cuberude_hybrid_d(double a, double b) {
 }   
 
 
-void cuberude_hybrid_scalar(const double* a, const double* b, double* result, size_t n) {
+void hybrid_scalar(const double* a, const double* b, double* result, size_t n) {
     for (size_t i = 0; i < n; ++i) {       result[i] = cuberude_hybrid_d(a[i], b[i]); }
 }
 
 #if defined(__AVX2__)
-void cuberude_hybrid_avx2(const double* a, const double* b, double* result, size_t n) {
+void hybrid_avx2(const double* a, const double* b, double* result, size_t n) {
     a = (const double*)__builtin_assume_aligned(a, 32);
     b = (const double*)__builtin_assume_aligned(b, 32);
     result = (double*)__builtin_assume_aligned(result, 32);
@@ -856,7 +856,7 @@ void cuberude_hybrid_avx2(const double* a, const double* b, double* result, size
 #endif
 
 #if defined(__AVX2__)
-void cuberude_hybrid_avx2_ps(const float* a, const float* b, float* result, size_t n) {
+void hybrid_avx2_ps(const float* a, const float* b, float* result, size_t n) {
     a = (const float*)__builtin_assume_aligned(a, 32);
     b = (const float*)__builtin_assume_aligned(b, 32);
     result = (float*)__builtin_assume_aligned(result, 32);
@@ -1031,30 +1031,30 @@ inline void init_kernels() {
     // Double-precision FARCe
 #if defined(__AVX2__)
     if (has_avx2()) {
-        farce_impl = cuberude_farce_avx2;
-        hybrid_impl = cuberude_hybrid_avx2;    // ✅ Now available
+        farce_impl = farce_avx2;
+        hybrid_impl = hybrid_avx2;    // ✅ Now available
     } else
 #endif
     {
-        farce_impl = cuberude_farce_scalar;
-        hybrid_impl = cuberude_hybrid_scalar;   
+        farce_impl = farce_scalar;
+        hybrid_impl = hybrid_scalar;   
     }
 
     // Single-precision
 #if defined(__AVX2__)
     if (has_avx2()) {
-        farce_f_impl = cuberude_farce_avx2_ps;
-        hybrid_f_impl = cuberude_hybrid_avx2_ps;
-        //farce_f_impl =  cuberude_farce_f;
-        //hybrid_f_impl = cuberude_hybrid_f;
+        farce_f_impl = farce_avx2_ps;
+        hybrid_f_impl = hybrid_avx2_ps;
+        //farce_f_impl =  farce_f;
+        //hybrid_f_impl = hybrid_f;
      } else
 #endif
     {
         farce_f_impl = [](const float* a, const float* b, float* r, size_t n) {
-            for (size_t i = 0; i < n; ++i) r[i] = cuberude_farce_f(a[i], b[i]);
+            for (size_t i = 0; i < n; ++i) r[i] = farce_f(a[i], b[i]);
         };
         hybrid_f_impl = [](const float* a, const float* b, float* r, size_t n) {
-            for (size_t i = 0; i < n; ++i) r[i] = cuberude_hybrid_f(a[i], b[i]);
+            for (size_t i = 0; i < n; ++i) r[i] = hybrid_f(a[i], b[i]);
         };
     }
 }     
