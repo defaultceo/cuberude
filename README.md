@@ -90,4 +90,8 @@ Double Test Results
 SPDX-License-Identifier: AGPL-3.0-only OR Commercial
 
 
+**avx512 support**
+In a future update we intend to support avx512 versions for the approximations.
+Our test suite did not support avx512 intrinsics so we refrained from including it in the initial launch.
+
 Contact: defaultceo@atomicmail.io 
